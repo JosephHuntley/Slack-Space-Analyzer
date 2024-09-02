@@ -12,7 +12,7 @@ def open_db():
         conn = sqlite3.connect('Files.db')
     
     except con.DatabaseError:
-        print("Unable to open Database.")
+        logger.error("Unable to open Database.")
         exit(0)
 
     # Logs a connection message
