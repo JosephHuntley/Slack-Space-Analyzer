@@ -1,0 +1,13 @@
+test
+test
+2024-09-01 23:36:12,185 - my_project - INFO - test
+2024-09-01 23:39:39,202 - my_project - INFO - Logger Created
+2024-09-01 23:39:39,204 - my_project - INFO - Database opened successfully
+2024-09-01 23:39:57,076 - my_project - INFO - Logger Created
+2024-09-01 23:39:57,076 - my_project - INFO - Database opened successfully
+2024-09-01 23:44:40,725 - my_project - INFO - Logger Created
+2024-09-01 23:44:40,726 - my_project - DEBUG - This is a debug
+2024-09-01 23:44:40,728 - my_project - INFO - Database opened successfully
+2024-09-01 23:44:59,201 - my_project - INFO - Logger Created
+2024-09-01 23:44:59,201 - my_project - DEBUG - This is a debug
+2024-09-01 23:44:59,201 - my_project - INFO - Database opened successfully

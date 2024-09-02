@@ -1,8 +1,7 @@
 import sqlite3
-import logging
+from logging_config import logger
 
-# 
-logger = logging.getLogger(__name__)
+
 
 def open_db():
     # Purpose: Open's the SQL Lite DB file
