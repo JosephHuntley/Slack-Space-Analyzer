@@ -14,7 +14,7 @@ log_level = args.logging if args.logging else config.get('logging', 'level', fal
 log_level = getattr(logging, log_level.upper(), logging.INFO)
 
 # Configure the logger
-logger = logging.getLogger('my_project')
+logger = logging.getLogger('Slack Space Analyzer')
 logger.setLevel(log_level)
 
 # Create a file handler
@@ -24,7 +24,7 @@ file_handler.setLevel(log_level)
 
 # Create a console handler
 console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.ERROR)
+console_handler.setLevel(logging.WARNING)
 
 # Create a formatter and attach it to the handler
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
