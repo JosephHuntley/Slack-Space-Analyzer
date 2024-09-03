@@ -14,7 +14,6 @@ def open_db():
     
     except conn.DatabaseError:
         logger.error("Unable to open Database.")
-        
 
     # Logs a connection message
     logger.info("Database opened successfully")
