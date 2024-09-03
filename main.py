@@ -6,8 +6,14 @@ from slack_space import analyze_slack
 # For dev purposes
 file = None
 
+# Connect to the DB
+conn = open_db()
+
 # Handle the arguments
 if args.analyze:
-    analyze_slack(file)
+    analyze_slack(conn, file)
 if args.server:
     print("HOSTING")
+
+
+
