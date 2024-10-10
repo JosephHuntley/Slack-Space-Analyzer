@@ -8,7 +8,15 @@ import os, io, zipfile
 
 WINDOW_SIZE = 4096  # 4 KB window size
 
-def analyze_slack( slack_file):
+def analyze_slack(slack_file):
+    # function: analyze_slack
+
+    # purpose: Analyze the slack space provided with the -f flag. 
+
+    # inputs: 
+        # slack_file: The file provided with the -f flag.
+
+    # returns:
     print("ANALYZING....")
     logger.debug(f"Opening file: {slack_file}")
 
@@ -27,14 +35,22 @@ def analyze_slack( slack_file):
         send_email()
 
 
-def search_for_pdf( file_name, conn):
-    """Search through the file in windows, looking for PDF magic number and EOF marker."""
+def search_for_pdf(file_path, conn):
+    # function: search_for_pdf
+
+    # purpose: Searches for PDF files in the slack space.
+
+    # inputs: 
+        # file_path: The File containing the slack space to be examined for PDF files.
+        # conn: DB Connection
+
+    # returns: 
 
     # PDF magic number and EOF marker
     PDF_MAGIC_NUMBER = b'%PDF'
     PDF_EOF_MARKER = b'%%EOF'
 
-    with open(file_name, 'rb') as sf:
+    with open(file_path, 'rb') as sf:
 
         file_start_pos = None  # Position where PDF starts
         buffer = b''  # Buffer to accumulate windowed content
@@ -67,7 +83,7 @@ def search_for_pdf( file_name, conn):
                         'pdf',               # File extension
                         file_start_pos,
                         file_end_pos,         # Use actual file end position
-                        os.path.abspath(file_name) 
+                        os.path.abspath(file_path) 
                     )
                     
                     # Add file to database
@@ -88,11 +104,17 @@ def search_for_pdf( file_name, conn):
         # If we reach here, it means no valid PDF with both magic number and EOF was found
         if pdf_start_offset == -1 or pdf_end_offset == -1:
             logger.debug("No complete PDF found in the file.")
-        logger.debug("No PDF file found in the slack space.")
-        return None
 
 def search_for_jpeg(file_path, conn):
-    """Search for JPEG files in the given file."""
+    # function: search_for_jpeg
+
+    # purpose: Search for JPEG files in the slack space.
+
+    # inputs: 
+        # file_path: The file containing the slack space to search JPEG files for.
+        # conn: The database connection 
+
+    # returns:
 
     JPEG_MAGIC_NUMBER = b'\xFF\xD8'  # JPEG Start of Image (SOI) marker
     JPEG_END_MARKER = b'\xFF\xD9'    # JPEG End of Image (EOI) marker
@@ -147,4 +169,3 @@ def search_for_jpeg(file_path, conn):
                 buffer = buffer[-WINDOW_SIZE:]
 
     logger.debug(f"No JPEG file found in {file_path}.")
-    return None

@@ -32,6 +32,14 @@ smtp_server = config.get('alert', 'smtp_server', fallback = "smtp.gmail.com")
 smtp_port = config.get('alert', 'smtp_port', fallback = "587") 
 
 def send_email():
+    # function: send_email
+
+    # purpose: Send email to alert user
+
+    # inputs: 
+
+    # returns:
+
     # Checks if email details are included in config.ini file
     if sender_email == '' or receiver_email == '' or password == '':
         logger.warning("Please add sender, receiver, and password into config.ini file")

@@ -11,7 +11,7 @@ if args.analyze:
     if file == None:
         logger.warning("No file was provided to analyze. Please provide a file with -f flag.")
         exit(0)
-    analyze_slack( file)
+    analyze_slack(file)
 if args.server:
     start_server()
 

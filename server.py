@@ -6,7 +6,14 @@ from cmd_arguments import args
 
 # Run the app
 def start_server():
-    # Connect to the DB
+    # function: start_server
+
+    # purpose: Starts the REST API Server
+
+    # inputs: 
+
+    # returns:
+
     app = Flask(__name__)
 
     # Welcome route
