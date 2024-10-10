@@ -5,7 +5,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
 default_port =  config.get('server', 'port', fallback='5000')
-default_debug = config.get('server', 'debug', fallback=False)
+default_debug = config.getboolean('server', 'debug', fallback=False)
 
 # Create the parser
 parser = argparse.ArgumentParser(description="Process some flags.")
