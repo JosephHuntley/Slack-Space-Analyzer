@@ -1,19 +1,19 @@
-from db import open_db, read_files_db 
+from db import read_files_db 
 from cmd_arguments import args
 from alert import send_email
 from slack_space import analyze_slack
-
-# For dev purposes
-file = "fake_binary_with_headers.bin"
-
-# Connect to the DB
-conn = open_db()
+from server import start_server
+from logging_config import logger
 
 # Handle the arguments
 if args.analyze:
-    analyze_slack(conn, file)
+    file = args.file
+    if file == None:
+        logger.warning("No file was provided to analyze. Please provide a file with -f flag.")
+        exit(0)
+    analyze_slack( file)
 if args.server:
-    print("HOSTING")
+    start_server()
 
 
 
