@@ -3,9 +3,36 @@ from logging_config import logger
 from file import File
 
 
+def init_db():
+    # Purpose: Initializes the database
+
+    # Return:
+
+    try:
+        conn = sqlite3.connect('Files.db')
+
+        query = '''
+            CREATE TABLE IF NOT EXISTS "Files" (
+            "id"	INTEGER NOT NULL UNIQUE,
+            "extension"	TEXT NOT NULL,
+            "starting_offset"	TEXT NOT NULL,
+            "ending_offset"	TEXT NOT NULL,
+            "filepath"	TEXT NOT NULL,
+            PRIMARY KEY("id" AUTOINCREMENT))
+            '''
+
+        conn.execute(query)
+
+        # Logs a connection message
+        logger.info("Database initialized successfully")
+
+        conn.close()
+    
+    except conn.DatabaseError:
+        logger.error("Unable to open Database.")
 
 def open_db():
-    # Purpose: Open's the SQL Lite DB file
+    # Purpose: Open's the SQLite DB file
 
     # Return: Db connection
 
@@ -31,6 +58,8 @@ def read_files_db(conn):
 
         # Query result
         results = conn.execute(query)
+
+        logger.info("File table read successfully")
 
     except conn.DatabaseError as e:
         logger.error(f'Unable to read from the database due to the following reason - {e}')
@@ -59,12 +88,12 @@ def create_file_db(conn, file):
     try:
         # Execute with parameters safely
         cursor.execute(query, (
-            file.file_type,                   # PDF extension
-            hex(file.starting_offset),        # Starting offset in hex format
-            hex(file.ending_offset),          # Ending offset in hex format
-            file.filepath                     # Absolute file path
+            file.file_type,                     # Extension
+            hex(file.starting_offset),         # Starting offset in hex format
+            hex(file.ending_offset),           # Ending offset in hex format
+            file.filepath                       # Absolute file path
         ))
-        logger.debug("Data inserted successfully.")
+        logger.info("Data inserted successfully.")
         
         # Commit the transaction after successful insertion
         conn.commit()

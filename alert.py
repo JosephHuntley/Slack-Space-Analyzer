@@ -1,7 +1,6 @@
-import smtplib
+import smtplib, configparser
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import configparser
 from logging_config import logger
 
 # Read the configuration from config.ini
@@ -17,19 +16,18 @@ password = config.get('alert', 'app_password', fallback = '')
 subject = config.get('alert', 'subject', fallback = "Alert from Slack Space Analyzer")
 body = config.get('alert', 'body', fallback = "The Slack Space Analyzer has  completed its analysis.")
 
+# Gmail SMTP server configuration
+smtp_server = config.get('alert', 'smtp_server', fallback = "smtp.gmail.com")
+smtp_port = config.get('alert', 'smtp_port', fallback = "587") 
+
 # Create the email message
 message = MIMEMultipart()
 message["From"] = sender_email
 message["To"] = receiver_email
 message["Subject"] = subject
 
-
 # Attach the body text to the email
 message.attach(MIMEText(body, "plain"))
-
-# Gmail SMTP server configuration
-smtp_server = config.get('alert', 'smtp_server', fallback = "smtp.gmail.com")
-smtp_port = config.get('alert', 'smtp_port', fallback = "587") 
 
 def send_email():
     # function: send_email
@@ -43,7 +41,8 @@ def send_email():
     # Checks if email details are included in config.ini file
     if sender_email == '' or receiver_email == '' or password == '':
         logger.warning("Please add sender, receiver, and password into config.ini file")
-        exit(0)
+        # Exit the function
+        return 0
 
     # Log the email details for debugging
     logger.debug(f"From: {sender_email}")

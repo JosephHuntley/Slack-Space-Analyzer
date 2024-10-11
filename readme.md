@@ -14,7 +14,7 @@
 -s: Enable server.
 
 # Example Usage
-`Python3 main.py -a -f ./PDF\ Slack\ Files/Image_With_Deleted_PDF.001  -s -p 5001`
+`Python3 main.py -a -f ./Test\ Images/Image_Deleted.001  -s -p 5001`
 
 In the above command, you utilize the `-a` flag to tell it to analyze a file, the `-f` flag to tell it which file to analyze, the `-s` flag to tell it to start hosting the server (After the analysis), and the `-p` flag to specify the port number.
 

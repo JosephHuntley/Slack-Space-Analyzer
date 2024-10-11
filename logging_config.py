@@ -1,5 +1,4 @@
-import logging
-import configparser
+import logging, configparser
 from cmd_arguments import args
 
 # Read the configuration from config.ini

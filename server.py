@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from db import read_files_db, open_db
 from cmd_arguments import args
+from logging_config import logger
 
 
 
@@ -13,6 +14,8 @@ def start_server():
     # inputs: 
 
     # returns:
+
+    logger.info("Starting server")
 
     app = Flask(__name__)
 

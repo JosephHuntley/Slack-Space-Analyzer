@@ -1,5 +1,4 @@
-import argparse
-import configparser
+import argparse, configparser
 
 # Read the configuration from config.ini
 config = configparser.ConfigParser()
@@ -8,7 +7,7 @@ default_port =  config.get('server', 'port', fallback='5000')
 default_debug = config.getboolean('server', 'debug', fallback=False)
 
 # Create the parser
-parser = argparse.ArgumentParser(description="Process some flags.")
+parser = argparse.ArgumentParser(description="Process flags related to Slack Space Analyzer.")
 
 # Add command-line flags (or arguments)
 parser.add_argument('-a', '--analyze', action='store_true', help="Enable analyze mode")

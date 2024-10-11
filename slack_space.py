@@ -17,7 +17,10 @@ def analyze_slack(slack_file):
         # slack_file: The file provided with the -f flag.
 
     # returns:
+    
+    # Logging and prints message for user
     print("ANALYZING....")
+    logger.info("Analyzing....")
     logger.debug(f"Opening file: {slack_file}")
 
     # Connect to the DB
@@ -50,6 +53,9 @@ def search_for_pdf(file_path, conn):
     PDF_MAGIC_NUMBER = b'%PDF'
     PDF_EOF_MARKER = b'%%EOF'
 
+    logger.info("Searching for PDF files in slack space.")
+
+    logger.debug(f"Opening file: {file_path}")
     with open(file_path, 'rb') as sf:
 
         file_start_pos = None  # Position where PDF starts
@@ -80,9 +86,9 @@ def search_for_pdf(file_path, conn):
 
                     # Create file object with correct offsets
                     file = File(
-                        'pdf',               # File extension
+                        'pdf',               
                         file_start_pos,
-                        file_end_pos,         # Use actual file end position
+                        file_end_pos,         
                         os.path.abspath(file_path) 
                     )
                     
@@ -119,8 +125,9 @@ def search_for_jpeg(file_path, conn):
     JPEG_MAGIC_NUMBER = b'\xFF\xD8'  # JPEG Start of Image (SOI) marker
     JPEG_END_MARKER = b'\xFF\xD9'    # JPEG End of Image (EOI) marker
 
-    logger.debug(f"Opening file: {file_path}")
+    logger.info("Searching for JPEG files in slack space.")
 
+    logger.debug(f"Opening file: {file_path}")
     with open(file_path, "rb") as f:
         buffer = b''  # Buffer to accumulate windowed content
         file_start_pos = None  # Position where JPEG starts
