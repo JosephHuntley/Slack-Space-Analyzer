@@ -57,7 +57,6 @@ def search_for_pdf(file_path, conn):
 
     logger.debug(f"Opening file: {file_path}")
     with open(file_path, 'rb') as sf:
-
         file_start_pos = None  # Position where PDF starts
         buffer = b''  # Buffer to accumulate windowed content
         pdf_start_offset = -1
@@ -81,23 +80,25 @@ def search_for_pdf(file_path, conn):
                     # Adjust the pdf_end_offset to account for the length of the EOF marker
                     pdf_end_offset += len(PDF_EOF_MARKER)
                     file_end_pos = sf.tell() - len(buffer) + pdf_end_offset
-                    logger.debug(f"PFD EOF found at offset {file_end_pos} - {hex(file_end_pos)}")
-                    logger.debug(f"PDF file detected in {sf}.")
+                    logger.debug(f"PDF EOF found at offset {file_end_pos} - {hex(file_end_pos)}")
+                    logger.debug(f"PDF file detected in {file_path}.")
 
                     # Create file object with correct offsets
                     file = File(
-                        'pdf',               
-                        file_start_pos,
-                        file_end_pos,         
-                        os.path.abspath(file_path) 
+                        'pdf',               # File extension
+                        file_start_pos,      # Start offset of the PDF
+                        file_end_pos,        # End offset of the PDF
+                        os.path.abspath(file_path)  # Absolute file path
                     )
-                    
+
                     # Add file to database
                     create_file_db(conn, file)
                     logger.debug("Recovered PDF file added to database.")
 
-                    # Stop once a PDF is found (optional, if looking for multiple PDFs, remove this break)
-                    break
+                    # Reset search positions to continue after the EOF marker
+                    file_start_pos = None  # Reset to search for the next PDF
+                    buffer = buffer[pdf_end_offset:]  # Trim buffer to continue after the EOF marker
+                    continue  # Continue searching for more PDFs
 
             # Keep the last portion of the buffer to avoid missing data split between chunks
             if file_start_pos is None:
