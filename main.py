@@ -1,3 +1,10 @@
+'''
+Name: Joseph Huntley
+Class: CYBR-260-40
+Date Oct 11th, 2024
+Desc:
+    The application searches through a provided image of a drive for files.
+'''
 from db import read_files_db, init_db
 from cmd_arguments import args
 from alert import send_email

@@ -1,3 +1,6 @@
+# Description
+An application built as the final project for class CYBR-260-40. The application searches through a provided image of a drive for files, deleted or not. It then stores the information in a SQLite database and can retrieve/send the information via a REST API. It also contains quality of life features such as alerting the user once the analysis is finished through email, and persistent configuration in the config.ini file.
+
 # Flags
 -a: Analyze a specified file.
 
